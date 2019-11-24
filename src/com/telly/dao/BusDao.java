@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Component("busDao")
 public class BusDao {
-
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -27,8 +26,6 @@ public class BusDao {
     public void create(Bus bus) {
         session().save(bus);
     }
-
-
 
     @SuppressWarnings("unchecked")
     public List<Bus> getAllUsers() {

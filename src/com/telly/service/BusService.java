@@ -13,10 +13,19 @@ import com.telly.dao.BusDao;
 @Service("busService")
 public class BusService {
 
-    @Autowired
-    private BusDao busDao;
+	@Autowired
+	private BusDao busDao;
+	
+	public void create(Bus bus){
+		busDao.create(bus);
+	}
+	
+	public List<Bus> getCity(String leaveFrom, String goingTo, Date dateLeave, Date dateReturn){
+		return busDao.getCity(leaveFrom, goingTo, dateLeave, dateReturn);
+	}
+	
+	
+	
 
-    public void create(Bus bus) {
-        busDao.create(bus);
-    }
 }
+

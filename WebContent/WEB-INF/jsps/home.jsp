@@ -29,7 +29,15 @@
 		<a href="${pageContext.request.contextPath}/getreservations">My Reservations</a>
 	</p>
 	
-
+	
+	<c:forEach var="reserves" items="${reserves}">
+	<p>
+		<c:out value="${reserves.leaveFrom}"></c:out>
+		<c:out value="${reserves.dateLeave}"></c:out>
+		<c:out value="${reserves.goingTo}"></c:out>
+		<c:out value="${reserves.dateReturn}"></c:out>
+	</c:forEach>
+	
 	
 
 

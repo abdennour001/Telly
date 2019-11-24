@@ -16,26 +16,54 @@ import com.telly.dao.FormValidationGroup;
 import com.telly.service.BusService;
 
 @Controller
-public class BusController{
-@RequestMapping("/createtrip")
-public String reserveBus(Model model, Principal principal) {
+public class BusController {
 
-        model.addAttribute("bus", new Bus());
+	@Autowired
+	BusService busService;
+	
 
-        return "createtrip";
-        }
+	@RequestMapping("/createtrip")
+	public String reserveBus(Model model, Principal principal) {
 
-@RequestMapping(value = "/createreserve", method = RequestMethod.POST)
-public String createReserve(@Validated(FormValidationGroup.class) Bus bus, BindingResult result,
-        Principal principal) {
+		model.addAttribute("bus", new Bus());
 
-        if (result.hasErrors()) {
-        return "reservebus";
-        }
+		return "createtrip";
+	}
 
-        busService.create(bus);
+	@RequestMapping(value = "/createreserve", method = RequestMethod.POST)
+	public String createReserve(@Validated(FormValidationGroup.class) Bus bus, BindingResult result,
+			Principal principal) {
 
-        return "home";
+		if (result.hasErrors()) {
+			return "reservebus";
+		}
 
-        }
+		busService.create(bus);
+
+		return "home";
+
+	}
+
+	@RequestMapping("/results")
+	public String leave(Model model, Principal principal) {
+
+		model.addAttribute("bus", new Bus());
+
+		return "results";
+	}
+	
+
+	@RequestMapping(value = "/resultsfrom", method = RequestMethod.GET)
+	public String leaveFrom(@Validated(FormValidationGroup.class) Bus bus, BindingResult result, Model model,
+			Principal principal) {
+
+		List<Bus> results = busService.getCity(bus.getLeaveFrom(), bus.getGoingTo(), bus.getDateLeave(),
+				bus.getDateReturn());
+		model.addAttribute("results", results);
+		System.out.println(results);
+
+		return "results";
+
+	}
+
 }
